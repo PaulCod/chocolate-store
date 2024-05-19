@@ -22,6 +22,13 @@
           return
         }
         
+        const userExists = await this.userRepository.getByEmail(user.email)
+
+        if (userExists.length > 0) {
+          res.status(400).json({message: ['User already exists']})
+          return
+        }
+        
         await this.userRepository.save(user)
 
         res.status(201).json({
@@ -65,15 +72,9 @@
       }
 
       const user = new UserModel(req.body)
-      user.formatData()
 
-      if (checkUserData.checkName(user.name)) {
+      if (!checkUserData.checkName(user.name)) {
         res.status(400).json({message: ['Name must be at least 3 characters long']})
-        return
-      }
-
-      if (checkUserData.checkEmail(user.email)) {
-        res.status(400).json({message: ['Email must be valid']})
         return
       }
 

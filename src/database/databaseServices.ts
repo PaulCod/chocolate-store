@@ -1,4 +1,4 @@
-import mysql, { Pool, PoolConnection } from 'mysql2';
+import mysql, { Pool, PoolConnection } from 'mysql2/promise'; // Use 'mysql2/promise' consistentemente
 import IDatabaseService from '../interfaces/DatabaseServiceInterface';
 
 class DatabaseServices implements IDatabaseService {
@@ -14,39 +14,27 @@ class DatabaseServices implements IDatabaseService {
       connectionLimit: 10,
       queueLimit: 0
     });
-
-    this.pool.on('connection', (connection) => {
-      console.log('New connection established');
-    });
-
-    this.pool.on('error', (err) => {
-      console.error('Database error:', err);
-    });
   }
 
   async getConnection(): Promise<PoolConnection> {
-    return new Promise<PoolConnection>((resolve, reject) => {
-      this.pool.getConnection((err, connection) => {
-        if (err) {
-          console.error('Error getting database connection:', err);
-          return reject(err);
-        }
-        resolve(connection);
-      });
-    });
+    try {
+      const connection = await this.pool.getConnection();
+      console.log('New connection established');
+      return connection;
+    } catch (err) {
+      console.error('Error getting database connection:', err);
+      throw err;
+    }
   }
 
   async closePool(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.pool.end((err) => {
-        if (err) {
-          console.error('Error closing database pool:', err);
-          return reject(err);
-        }
-        console.log('Database pool closed');
-        resolve();
-      });
-    });
+    try {
+      await this.pool.end();
+      console.log('Database pool closed');
+    } catch (err) {
+      console.error('Error closing database pool:', err);
+      throw err;
+    }
   }
 }
 

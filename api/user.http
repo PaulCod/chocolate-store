@@ -3,6 +3,19 @@ Content-Type: application/json
 
 {
   "name": "paulo",
-  "email": "paulols@gmail.com",
+  "email": "paulo@gmail.com",
   "password": "12345"
+}
+
+###
+
+GET http://localhost:3838/users/c2a4a716-3235-4e96-a586-d6b5751c1f02 HTTP/1.1
+
+
+###
+PUT http://localhost:3838/users/c2a4a716-3235-4e96-a586-d6b5751c1f02
+Content-Type: application/json
+
+{
+  "name": "Paulo Atualizado"
 }

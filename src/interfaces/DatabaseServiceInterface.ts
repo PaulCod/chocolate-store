@@ -1,8 +1,8 @@
-import { Connection } from "mysql2"
+import { PoolConnection } from "mysql2/promise"
 
 interface IDatabaseService {
   // connect(): void
-  getConnection(): Connection
+  getConnection(): Promise<PoolConnection>
 }
 
 export default IDatabaseService
