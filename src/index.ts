@@ -13,8 +13,6 @@ const userRepository = new UserRepository(databaseServices)
 const userController = new UserController(userRepository)
 const userRoutes = new UserRoutes(userController)
 
-
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(userRoutes.router)
