@@ -63,7 +63,6 @@
         return
       }
     }
-
     async updateUser(req: Request, res: Response): Promise<void> {
       const id: string = req.params.id
 

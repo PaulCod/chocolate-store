@@ -2,9 +2,10 @@ import { IUserData } from "../../interfaces/UserInterface"
 
 class CheckUserData {
   errors: string[] = []
+  private readonly emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
 
   checkEmail(email: string): boolean {
-    return email && email.includes('@') ? true : false
+    return email && this.emailRegex.test(email) ? true : false
   }
 
   checkPassword(password: string): boolean {

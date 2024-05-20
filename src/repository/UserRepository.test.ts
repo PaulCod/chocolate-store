@@ -1,4 +1,4 @@
-import { PoolConnection, QueryResult } from "mysql2/promise";
+import { PoolConnection } from "mysql2/promise";
 import IDatabaseService from "../interfaces/DatabaseServiceInterface";
 import UserRepository from "./UserRepository";
 import { IUserData } from "../interfaces/UserInterface";
@@ -9,10 +9,10 @@ describe('UserRepository', () => {
   let mockDatabaseService: jest.Mocked<IDatabaseService>;
   let mockConnection: jest.Mocked<PoolConnection>;
   let userData: IUserData = {
+    id: '550e8400-e29b-41d4-a716-446655440000',
     name: 'John Doe',
     email: 'john.doe@example.com',
     password: 'password123',
-    id: undefined,
     createdAt: undefined,
     updatedAt: undefined,
   };
@@ -53,7 +53,7 @@ describe('UserRepository', () => {
     const user = new UserModel(userData);
     user.formatData();
     await user.hashPassword();
-    const userId = user.id as string
+    const userId = user.id as string;
 
     await userRepository.update(user, userId);
 
@@ -101,7 +101,7 @@ describe('UserRepository', () => {
       [user.id, user.name, user.email, user.password]
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);
-  })
+  });
 
   it('should delete a user from the database', async () => {
     const userId = '550e8400-e29b-41d4-a716-446655440000';
@@ -113,12 +113,12 @@ describe('UserRepository', () => {
       [userId]
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);
-  })
+  });
 
   it('should throw an error if the delete fails', async () => {
     const errorMessage = 'Delete failed';
     const userId = '550e8400-e29b-41d4-a716-446655440000';
-    
+
     mockConnection.execute.mockRejectedValueOnce(new Error(errorMessage));
 
     await expect(userRepository.delete(userId)).rejects.toThrow(errorMessage);
@@ -129,12 +129,16 @@ describe('UserRepository', () => {
       [userId]
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);
-  })
+  });
 
   it("should get a user from the database", async () => {
     const userId = '550e8400-e29b-41d4-a716-446655440000';
+    const mockResult: IUserData[] = [userData];
+
+    mockConnection.execute.mockResolvedValueOnce([mockResult, []] as any);
+
     const user = await userRepository.getById(userId);
-    
+
     expect(mockDatabaseService.getConnection).toHaveBeenCalledTimes(1);
     expect(mockConnection.execute).toHaveBeenCalledWith(
       "SELECT id, name, email, password FROM `users` WHERE id = ?",
@@ -147,11 +151,11 @@ describe('UserRepository', () => {
   it("should throw an error if the get user fails", async () => {
     const errorMessage = 'Get user failed';
     const userId = '550e8400-e29b-41d4-a716-446655440000';
-    
+
     mockConnection.execute.mockRejectedValueOnce(new Error(errorMessage));
 
     await expect(userRepository.getById(userId)).rejects.toThrow(errorMessage);
-    
+
     expect(mockDatabaseService.getConnection).toHaveBeenCalledTimes(1);
     expect(mockConnection.execute).toHaveBeenCalledWith(
       "SELECT id, name, email, password FROM `users` WHERE id = ?",
@@ -159,5 +163,4 @@ describe('UserRepository', () => {
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);
   });
-
 });

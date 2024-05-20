@@ -1,4 +1,4 @@
-import { PoolConnection } from "mysql2/promise";
+import { PoolConnection, RowDataPacket } from "mysql2/promise";
 import IDatabaseService from "../interfaces/DatabaseServiceInterface";
 import { IUserData, IUserRepository, IUserRepositoryAttributes } from "../interfaces/UserInterface";
 
@@ -67,7 +67,7 @@ class UserRepository implements IUserRepository, IUserRepositoryAttributes {
     const connection = await this.getConnection();
 
     try {
-      const [rows] = await connection.execute(query, values);
+      const [rows] = await connection.execute<RowDataPacket[]>(query, values);
       const users = rows as IUserData[];
       if (users.length > 0) {
         return users[0];
