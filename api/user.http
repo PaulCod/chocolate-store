@@ -1,4 +1,4 @@
-POST http://localhost:3838/users HTTP/1.1
+POST http://localhost:3838/api/users HTTP/1.1
 Content-Type: application/json
 
 {
@@ -9,13 +9,16 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3838/users/c2a4a716-3235-4e96-a586-d6b5751c1f02 HTTP/1.1
+GET http://localhost:3838/api/users/c2a4a716-3235-4e96-a586-d6b5751c1f02 HTTP/1.1
 
 
 ###
-PUT http://localhost:3838/users/c2a4a716-3235-4e96-a586-d6b5751c1f02
+PUT http://localhost:3838/api/users/c2a4a716-3235-4e96-a586-d6b5751c1f02
 Content-Type: application/json
 
 {
-  "name": "Paulo Atualizado"
+  "name": "Paulo Atualizado 2"
 }
+
+###
+DELETE http://localhost:3838/api/users/c2a4a716-3235-4e96-a586-d6b5751c1f02

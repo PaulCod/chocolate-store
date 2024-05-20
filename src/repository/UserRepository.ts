@@ -8,9 +8,9 @@ class UserRepository implements IUserRepository, IUserRepositoryAttributes {
   constructor(databaseService: IDatabaseService) {
     this.databaseService = databaseService;
   }
-  closePool(): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
+  // closePool(): Promise<void> {
+  //   throw new Error("Method not implemented.");
+  // }
 
   private async getConnection(): Promise<PoolConnection> {
     return this.databaseService.getConnection();
