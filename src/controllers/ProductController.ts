@@ -12,7 +12,9 @@ class ProductController implements IProductController {
 
   async createProduct(req: Request, res: Response): Promise<void> {
     if (req.file === undefined) {
-      res.status(400).send("Please upload an image");
+      res.status(400).json({
+        message: ['Image is required'],
+      });
       return;
     }
 
@@ -28,7 +30,9 @@ class ProductController implements IProductController {
         message: ['Product created'],
       })
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).json({
+        message: ['Internal server error'],
+      });
     }
   }
   async getProduct(req: Request, res: Response): Promise<void> {
