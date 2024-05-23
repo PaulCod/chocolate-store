@@ -59,12 +59,12 @@ class ProductRepository implements IProductRepository {
     const query = "SELECT * FROM `chocolate` WHERE id = ?";
     const values = [id];
     const connection = await this.getConnection();
-
+  
     try {
-      const [rows] = await connection.execute(query, values);
-      const products = rows as IProductData[];
-      if (products.length > 0) {
-        return products[0];
+      const [row] = await connection.execute(query, values);
+      
+      if (row) {
+        return row as unknown as IProductData;
       } else {
         throw new Error("Product not found");
       }
