@@ -1,4 +1,4 @@
-import mysql, { Pool, PoolConnection } from 'mysql2/promise'; // Use 'mysql2/promise' consistentemente
+import mysql, { Pool, PoolConnection } from 'mysql2/promise';
 import IDatabaseService from '../interfaces/DatabaseServiceInterface';
 
 class DatabaseServices implements IDatabaseService {

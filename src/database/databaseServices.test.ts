@@ -1,6 +1,5 @@
 import mysql from "mysql2/promise";
 import DatabaseServices from "./databaseServices";
-import { release } from "os";
 
 jest.mock("mysql2/promise", () => {
   const mPool = {
