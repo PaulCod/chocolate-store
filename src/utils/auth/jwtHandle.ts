@@ -15,8 +15,16 @@ class JwtHandler {
     return token
   }
 
-  static validateToken(token: string): boolean {
-    return true;
+  static verifyToken(token: string): boolean | string | jwt.JwtPayload {
+    try {
+      const publicKey = fs.readFileSync(path.join(__dirname, '../../../private.pem'), 'utf8')
+      const decoded = jwt.verify(token, publicKey)
+      return decoded
+    }
+    catch (err) {
+      console.log(err)
+      return false
+    }
   }
 }
 

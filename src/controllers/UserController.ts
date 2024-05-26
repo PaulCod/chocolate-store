@@ -24,7 +24,7 @@ class UserController implements IUserController {
       }
 
       const userExists = await this.userRepository.getByEmail(user.email);
-      if (userExists.length > 0) {
+      if (userExists !== null) {
         res.status(400).json({ message: ['User already exists'] });
         return;
       }
@@ -59,7 +59,7 @@ class UserController implements IUserController {
   }
 
   async updateUser(req: Request, res: Response): Promise<void> {
-    const id: string = req.params.id;
+    const id: string = req.body.userId
   
     if (!id || id === '') {
       res.status(400).json({ message: ['Id is required'] });
@@ -87,9 +87,8 @@ class UserController implements IUserController {
     }
   }
   
-
   async deleteUser(req: Request, res: Response): Promise<void> {
-    const id: string = req.params.id;
+    const id: string = req.body.userId
 
     if (!id || id === '') {
       res.status(400).json({ message: ['Id is required'] });

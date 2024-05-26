@@ -11,7 +11,11 @@ class OrderController implements IOrderController {
   }
 
   async createOrder(req: Request, res: Response): Promise<void> {
+    const { userId } = req.body;
+
     const order = new Order(req.body.order)
+    order.userId = userId;
+    
     const items: IOrderItemData[] = []
     for (const item of req.body.items) {
       items.push(new OrderItem(item))
