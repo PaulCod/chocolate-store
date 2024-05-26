@@ -2,12 +2,15 @@ import { Request, Response } from "express";
 import { IProductController, IProductData, IProductRepository } from "../interfaces/ProductInterfaces";
 import path from "path";
 import ProductModel from "../models/ProductModel";
+import CheckProductData from "../utils/checkData/checkProductData";
 
 class ProductController implements IProductController {
   productRepository: IProductRepository;
+  private checkDataProduct: CheckProductData
 
   constructor(productRepository: IProductRepository) {
     this.productRepository = productRepository
+    this.checkDataProduct = new CheckProductData()
   }
 
   async createProduct(req: Request, res: Response): Promise<void> {
@@ -23,6 +26,12 @@ class ProductController implements IProductController {
     req.body.imgUrl = `http://192.168.1.7:3838${imagePath}`
 
     const product = new ProductModel(req.body);
+
+    this.checkDataProduct.checkData(product);
+    if (this.checkDataProduct.errors.length > 0) {
+      res.status(400).json({message: this.checkDataProduct.errors})
+      return
+    }
 
     try {
       await this.productRepository.save(product);
@@ -76,6 +85,12 @@ class ProductController implements IProductController {
     }
 
     const product = new ProductModel(req.body)
+
+    this.checkDataProduct.checkData(product)
+    if (this.checkDataProduct.errors.length > 0) {
+      res.status(400).json({message: this.checkDataProduct.errors})
+      return
+    }
 
     try {
       const productExists = await this.productRepository.getById(id)

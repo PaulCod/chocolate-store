@@ -1,22 +1,36 @@
+import { Request, Response } from "express"
+
 interface IOrderData {
   id: string | undefined
   userId: string
   status: string
+  totalAmount: number
   createdAt: Date | undefined
 }
 
+interface IOrderItemData {
+  orderId: string
+  chocolateId: string
+  quantity: number
+}
+
 interface IOrderRepository {
-  save(order: IOrderData): Promise<void>
+  save(order: IOrderData, items: IOrderItemData[]): Promise<void>
   delete(id: string): Promise<void>
-  getById(id: string): Promise<IOrderData>
-  getAll(): Promise<IOrderData[]>
+  getAll(idUser: string): Promise<IFormattedOrderData[]>
+}
+
+interface IFormattedOrderData {
+  name: string
+  total_amount: number
+  status: string
+  total_quantity: number
 }
 
 interface IOrderController {
-  createOrder(order: IOrderData): Promise<void>
-  deleteOrder(id: string): Promise<void>
-  getOrder(id: string): Promise<IOrderData>
-  getOrders(idUser: string): Promise<IOrderData[]>
+  createOrder(req: Request, res: Response): Promise<void>
+  deleteOrder(req: Request, res: Response): Promise<void>
+  getOrders(req: Request, res: Response): Promise<void>
 }
 
-export { IOrderData, IOrderRepository, IOrderController }
+export { IOrderData, IOrderRepository, IOrderController, IOrderItemData, IFormattedOrderData }

@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 class Order implements IOrderData {
   id: string | undefined;
   userId: string;
+  totalAmount: number;
   status: string;
   createdAt: Date | undefined;
 
@@ -11,6 +12,7 @@ class Order implements IOrderData {
     this.id = data.id ?? uuidv4()
     this.userId = data.userId
     this.status = data.status
+    this.totalAmount = data.totalAmount
     this.createdAt = data.createdAt
   }
 }

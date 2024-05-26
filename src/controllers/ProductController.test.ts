@@ -24,7 +24,7 @@ describe("ProductController", () => {
         body: {
           name: "test",
           price: 10,
-          description: "test",
+          description: "test test test test",
           imgUrl: "test",
         },
         file: {
@@ -64,6 +64,93 @@ describe("ProductController", () => {
 
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({ message: ["Image is required"] });
+    })
+
+    it("should return an error if name is not provided", async () => {
+      const req = {
+        body: {
+          name: "t",
+          price: 10,
+          description: "test test test test",
+          imgUrl: "test",
+        },
+        file: {
+          fieldname: 'image',
+          originalname: 'test.png',
+          encoding: '7bit',
+          mimetype: 'image/png',
+          buffer: Buffer.from(''),
+          size: 1000,
+          destination: '',
+          filename: 'test.png',
+          path: '',
+        },
+      } as unknown as Request;
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
+
+      await productController.createProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ message: ["Name must be at least 3 characters long"] });
+    })
+
+    it("should return an error if price is not provided", async () => {
+      const req = {
+        body: {
+          name: "test",
+          price: 0,
+          description: "test test test test",
+          imgUrl: "test",
+        },
+        file: {
+          fieldname: 'image',
+          originalname: 'test.png',
+          encoding: '7bit',
+          mimetype: 'image/png',
+          buffer: Buffer.from(''),
+          size: 1000,
+          destination: '',
+          filename: 'test.png',
+          path: '',
+        },
+      } as unknown as Request;
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
+
+      await productController.createProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ message: ["Price must be greater than 0"] });
+    })
+
+    it ("should return an error if description is not provided", async () => {
+      const req = {
+        body: {
+          name: "test",
+          price: 10,
+          description: "",
+          imgUrl: "test",
+        },
+        file: {
+          fieldname: 'image',
+          originalname: 'test.png',
+          encoding: '7bit',
+          mimetype: 'image/png',
+          buffer: Buffer.from(''),
+          size: 1000,
+          destination: '',
+          filename: 'test.png',
+          path: '',
+        },
+      } as unknown as Request;
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
+
+      await productController.createProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ message: ["Description must be at least 10 characters long"] });
     })
   });
 
