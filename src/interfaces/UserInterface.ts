@@ -31,7 +31,7 @@ interface IUserRepository {
   update(user: IUserData, id: string): Promise<void>
   delete(id: string): Promise<void>
   getById(id: string): Promise<IUserData>
-  getByEmail(email: string): Promise<IUserData[]>
+  getByEmail(email: string): Promise<IUserData | null>
 }
 
 export { IUserData, IUserMethods, IUserController, IUserRepository, IUserRepositoryAttributes }

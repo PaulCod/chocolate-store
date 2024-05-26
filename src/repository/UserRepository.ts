@@ -82,14 +82,19 @@ class UserRepository implements IUserRepository, IUserRepositoryAttributes {
     }
   }
 
-  async getByEmail(email: string): Promise<IUserData[]> {
+  async getByEmail(email: string): Promise<IUserData | null> {
     const query = "SELECT id, name, email, password FROM `users` WHERE email = ?";
     const values = [email];
     const connection = await this.getConnection();
 
     try {
       const [rows] = await connection.execute(query, values);
-      return rows as IUserData[];
+      const users = rows as IUserData[];
+      if (users.length > 0) {
+        return users[0];
+      }
+
+      return null;
     } catch (error) {
       console.log(error);
       throw error;
