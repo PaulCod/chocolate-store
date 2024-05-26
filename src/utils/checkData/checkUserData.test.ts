@@ -17,7 +17,7 @@ describe('CheckUserData', () => {
       createdAt: undefined,
       updatedAt: undefined
     }
-    checkUserData.checkAllData(data);
+    checkUserData.checkEmail(data.email);
     expect(checkUserData.errors).toContain('Invalid email');
   });
 
@@ -30,7 +30,7 @@ describe('CheckUserData', () => {
       createdAt: undefined,
       updatedAt: undefined
      };
-    checkUserData.checkAllData(data);
+    checkUserData.checkPassword(data.password);
     expect(checkUserData.errors).toContain('Password must be at least 6 characters long');
   });
 
@@ -43,7 +43,7 @@ describe('CheckUserData', () => {
       createdAt: undefined,
       updatedAt: undefined
      };
-    checkUserData.checkAllData(data);
+    checkUserData.checkName(data.name);
     expect(checkUserData.errors).toContain('Name must be at least 3 characters long');
   });
 

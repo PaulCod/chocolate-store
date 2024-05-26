@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { IUserController, IUserRepository } from "../interfaces/UserInterface";
 import UserModel from '../models/UserModel';
-import checkUserData from '../utils/checkData/checkUserData';
+import { CheckUserData } from '../utils/checkData/checkUserData';
 
 class UserController implements IUserController {
   userRepository: IUserRepository;
@@ -17,6 +17,7 @@ class UserController implements IUserController {
       user.formatData();
       await user.hashPassword();
 
+      const checkUserData = new CheckUserData();
       checkUserData.checkAllData(user);
       if (checkUserData.errors.length > 0) {
         res.status(400).json({ message: checkUserData.errors });
@@ -66,7 +67,8 @@ class UserController implements IUserController {
       return;
     }
   
-    const user = new UserModel(req.body);
+    const user = new UserModel(req.body)
+    const checkUserData = new CheckUserData();
     checkUserData.checkAllData(user);
     if (checkUserData.errors.length > 0) {
       res.status(400).json({ message: checkUserData.errors });

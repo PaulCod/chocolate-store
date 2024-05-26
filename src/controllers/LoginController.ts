@@ -3,7 +3,7 @@ import { ILoginController, ILoginData } from "../interfaces/LoginInterface";
 import { IUserRepository } from "../interfaces/UserInterface";
 import BcryptUtils from '../utils/auth/bcryptUtils';
 import JwtHandler from '../utils/auth/jwtHandle';
-import checkUserData from '../utils/checkData/checkUserData';
+import { CheckUserData } from '../utils/checkData/checkUserData';
 
 class LoginController implements ILoginController {
   userRepository: IUserRepository;
@@ -18,6 +18,14 @@ class LoginController implements ILoginController {
 
       if (!loginData.email || !loginData.password) {
         res.status(400).json({ message: ['Email and password are required'] });
+        return;
+      }
+
+      const checkUserData = new CheckUserData();
+
+      checkUserData.checkPassword(loginData.password)
+      if(checkUserData.errors.length > 0) {
+        res.status(400).json({ message: checkUserData.errors });
         return;
       }
 

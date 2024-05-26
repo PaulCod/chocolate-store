@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IOrderController, IOrderRepository, IOrderData, IOrderItemData } from "../interfaces/OrderInterface";
-import Order from "../models/OrderModel";
+import OrderModel from "../models/OrderModel";
 import OrderItem from "../models/OrderItemModel";
 
 class OrderController implements IOrderController {
@@ -13,7 +13,7 @@ class OrderController implements IOrderController {
   async createOrder(req: Request, res: Response): Promise<void> {
     const { userId } = req.body;
 
-    const order = new Order(req.body.order)
+    const order = new OrderModel(req.body.order)
     order.userId = userId;
     
     const items: IOrderItemData[] = []
@@ -36,7 +36,9 @@ class OrderController implements IOrderController {
     const id = req.params.id;
     try {
       await this.orderRepository.delete(id);
-      res.status(204).send();
+      res.status(204).json({
+        message: ["Order deleted"]
+      });
     } catch(error) {
       res.status(500).json({
         message: ["Internal server error"]

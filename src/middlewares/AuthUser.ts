@@ -22,7 +22,6 @@ class AuthUserMiddleware {
     }
 
     const result = JwtHandler.verifyToken(token)
-    console.log("Aqui")
 
     if (typeof result === "boolean" && !result) {
       return res.status(401).json({
@@ -31,6 +30,7 @@ class AuthUserMiddleware {
     }
 
     if(typeof result === "object" && result != null && "userId" in result) {
+      req.body = req.body || {}
       req.body.userId = result.userId as string
     } else {
       return res.status(401).json({

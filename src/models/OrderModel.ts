@@ -1,7 +1,7 @@
 import { IOrderData } from "../interfaces/OrderInterface";
 import { v4 as uuidv4 } from 'uuid'
 
-class Order implements IOrderData {
+class OrderModel implements IOrderData {
   id: string | undefined;
   userId: string;
   totalAmount: number;
@@ -17,4 +17,4 @@ class Order implements IOrderData {
   }
 }
 
-export default Order
+export default OrderModel

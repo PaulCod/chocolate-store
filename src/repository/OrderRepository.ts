@@ -1,6 +1,8 @@
 import { PoolConnection } from "mysql2/promise";
 import IDatabaseService from "../interfaces/DatabaseServiceInterface";
 import { IFormattedOrderData, IOrderData, IOrderItemData, IOrderRepository } from "../interfaces/OrderInterface";
+import { ORDER_DELETE_QUERY, ORDER_GET_ALL_QUERY } from "../constants/constants";
+
 
 class OrderRepository implements IOrderRepository {
   databaseService: IDatabaseService;
@@ -40,12 +42,11 @@ class OrderRepository implements IOrderRepository {
   }
 
   async delete(id: string): Promise<void> {
-    const query = "DELETE FROM `orders` WHERE id = ?";
     const values = [id];
     const connection = await this.getConnection();
 
     try {
-      await connection.query(query, values);
+      await connection.query(ORDER_DELETE_QUERY, values);
     } catch (error) {
       console.log(error);
       throw error;
@@ -55,17 +56,11 @@ class OrderRepository implements IOrderRepository {
   }
 
   async getAll(userId: string): Promise<IFormattedOrderData[]> {
-    const query = `SELECT c.name, o.total_amount, o.status, SUM(oi.quantity) as total_quantity 
-    FROM orders AS o
-    INNER JOIN order_items AS oi ON o.id = oi.order_id
-    INNER JOIN chocolate AS c ON oi.chocolate_id = c.id
-    WHERE o.user_id = ?
-    GROUP BY c.name, o.total_amount, o.status, o.id;`;
     const values = [userId];
     const connection = await this.getConnection();
 
     try {
-      const [rows] = await connection.query(query, values);
+      const [rows] = await connection.query(ORDER_GET_ALL_QUERY, values);
       return rows as IFormattedOrderData[];
     } catch (error) {
       console.log(error);
