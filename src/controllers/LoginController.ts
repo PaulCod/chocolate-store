@@ -39,7 +39,7 @@ class LoginController implements ILoginController {
         res.status(401).json({ message: ['Invalid password'] });  
         return;
       }
-      const token = JwtHandler.generateToken(user.id as string, user.email);
+      const token = JwtHandler.generateToken(user.userId as string, user.email);
       
       res.status(200).json({ 
         token: `Bearer ${token}`

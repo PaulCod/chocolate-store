@@ -24,7 +24,7 @@ class UserController implements IUserController {
       }
 
       const userExists = await this.userRepository.getByEmail(user.email);
-      if (userExists !== null) {
+      if (userExists != null) {
         res.status(400).json({ message: ['User already exists'] });
         return;
       }

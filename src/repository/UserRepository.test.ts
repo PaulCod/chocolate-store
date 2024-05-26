@@ -9,7 +9,7 @@ describe('UserRepository', () => {
   let mockDatabaseService: jest.Mocked<IDatabaseService>;
   let mockConnection: jest.Mocked<PoolConnection>;
   let userData: IUserData = {
-    id: '550e8400-e29b-41d4-a716-446655440000',
+    userId: '550e8400-e29b-41d4-a716-446655440000',
     name: 'John Doe',
     email: 'john.doe@example.com',
     password: 'password123',
@@ -44,7 +44,7 @@ describe('UserRepository', () => {
     expect(mockDatabaseService.getConnection).toHaveBeenCalledTimes(1);
     expect(mockConnection.execute).toHaveBeenCalledWith(
       "INSERT INTO `users`(id, name, email, password) VALUES (?, ?, ?, ?)",
-      [user.id, user.name, user.email, user.password]
+      [user.userId, user.name, user.email, user.password]
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);
   });
@@ -53,7 +53,7 @@ describe('UserRepository', () => {
     const user = new UserModel(userData);
     user.formatData();
     await user.hashPassword();
-    const userId = user.id as string;
+    const userId = user.userId as string;
 
     await userRepository.update(user, userId);
 
@@ -98,7 +98,7 @@ describe('UserRepository', () => {
     expect(mockDatabaseService.getConnection).toHaveBeenCalledTimes(1);
     expect(mockConnection.execute).toHaveBeenCalledWith(
       "INSERT INTO `users`(id, name, email, password) VALUES (?, ?, ?, ?)",
-      [user.id, user.name, user.email, user.password]
+      [user.userId, user.name, user.email, user.password]
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);
   });

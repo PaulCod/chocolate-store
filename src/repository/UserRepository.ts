@@ -18,7 +18,7 @@ class UserRepository implements IUserRepository, IUserRepositoryAttributes {
 
   async save(user: IUserData): Promise<void> {
     const query = "INSERT INTO `users`(id, name, email, password) VALUES (?, ?, ?, ?)";
-    const values = [user.id, user.name, user.email, user.password];
+    const values = [user.userId, user.name, user.email, user.password];
     const connection = await this.getConnection();
 
     try {

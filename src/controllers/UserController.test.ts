@@ -19,10 +19,12 @@ describe("UserController", () => {
 
   describe("createUser", () => {
     it("should create a user successfully", async () => {
+      mockUserRepository.getByEmail = jest.fn().mockResolvedValue(null);
+
       const req = {
         body: {
           name: "John Doe",
-          email: "john.doe@example.com",
+          email: "john.doeaaaa@example.com",
           password: "password123",
         }
       } as unknown as Request;
@@ -89,11 +91,11 @@ describe("UserController", () => {
 
   describe("updateUser", () => {
     it("should update user successfully", async () => {
-      const mockUser = { id: "1", name: "John Doe", email: "john.doe@example.com", password: "password123", "createdAt": "2022-01-01T00:00:00.000Z", "updatedAt": "2022-01-01T00:00:00.000Z" };
+      const mockUser = { userId: "1", name: "John Doe", email: "john.doe@example.com", password: "password123", "createdAt": "2022-01-01T00:00:00.000Z", "updatedAt": "2022-01-01T00:00:00.000Z" };
       mockUserRepository.getById = jest.fn().mockResolvedValue(mockUser);
       mockUserRepository.update = jest.fn();
 
-      const req = { params: { id: "1" }, body: mockUser } as unknown as Request;
+      const req = { body: mockUser } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
 
       await userController.updateUser(req, res);
@@ -102,8 +104,8 @@ describe("UserController", () => {
     });
 
     it("should return 400 if name is invalid", async () => {
-      const mockUser = { id: "1", name: "D", email: "john.doe@example.com", password: "password123", createdAt: "2022-01-01T00:00:00.000Z", updatedAt: "2022-01-01T00:00:00.000Z" };
-      const req = { params: { id: "1" }, body: mockUser } as unknown as Request;
+      const mockUser = { userId: "1", name: "D", email: "john.doe@example.com", password: "password123", createdAt: "2022-01-01T00:00:00.000Z", updatedAt: "2022-01-01T00:00:00.000Z" };
+      const req = { body: mockUser } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
     
       await userController.updateUser(req, res);
@@ -115,7 +117,7 @@ describe("UserController", () => {
     it("should return 404 if user not found", async () => {
       mockUserRepository.getById = jest.fn().mockResolvedValue(null);
     
-      const req = { params: { id: "1" }, body: { name: "Jane Doe", email: "jane.doe@example.com", password: "newpassword" } } as unknown as Request;
+      const req = { body: {userId: "1",  name: "Jane Doe", email: "jane.doe@example.com", password: "newpassword" } } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
     
       await userController.updateUser(req, res);
@@ -136,10 +138,10 @@ describe("UserController", () => {
 
   describe("deleteUser", () => {
     it("should delete user successfully", async () => {
-      const mockUser = { id: "1", name: "John Doe", email: "john.doe@example.com" };
+      const mockUser = { userId: "1", name: "John Doe", email: "john.doe@example.com" };
       mockUserRepository.getById = jest.fn().mockResolvedValue(mockUser);
 
-      const req = { params: { id: "1" } } as unknown as Request;
+      const req = { body: mockUser  } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
 
       await userController.deleteUser(req, res);
@@ -150,7 +152,7 @@ describe("UserController", () => {
     it("should return 404 if user not found", async () => {
       mockUserRepository.getById = jest.fn().mockResolvedValue(null);
 
-      const req = { params: { id: "1" } } as unknown as Request;
+      const req = { body: { userId: "1" }  } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
 
       await userController.deleteUser(req, res);
@@ -159,7 +161,7 @@ describe("UserController", () => {
     });
 
     it("should return 400 if id is not provided", async () => {
-      const req = { params: { id: "" } } as unknown as Request;
+      const req = { body: { userId: "" } } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
 
       await userController.deleteUser(req, res);

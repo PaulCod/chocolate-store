@@ -13,7 +13,7 @@ describe('CheckUserData', () => {
       name: 'John Doe',
       email: 'john@example',
       password: '123456',
-      id: undefined,
+      userId: undefined,
       createdAt: undefined,
       updatedAt: undefined
     }
@@ -26,7 +26,7 @@ describe('CheckUserData', () => {
       name: 'John Doe',
       email: 'john@example.com',
       password: '1234',
-      id: undefined,
+      userId: undefined,
       createdAt: undefined,
       updatedAt: undefined
      };
@@ -39,7 +39,7 @@ describe('CheckUserData', () => {
       name: 'Jo',
       email: 'john@example.com',
       password: '123456',
-      id: undefined,
+      userId: undefined,
       createdAt: undefined,
       updatedAt: undefined
      };
@@ -52,7 +52,7 @@ describe('CheckUserData', () => {
       name: 'John Doe',
       email: 'john@example.com',
       password: '123456',
-      id: undefined,
+      userId: undefined,
       createdAt: undefined,
       updatedAt: undefined
     };

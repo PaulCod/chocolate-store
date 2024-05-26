@@ -2,7 +2,7 @@ import {Request, Response} from 'express'
 import IDatabaseService from './DatabaseServiceInterface'
 
 interface IUserData {
-  id: string | undefined
+  userId: string | undefined
   name: string
   email: string
   password: string | undefined

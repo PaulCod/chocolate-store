@@ -8,7 +8,7 @@ describe("User Model", () => {
       name: 'test',
       email: 'test',
       password: 'test',
-      id: undefined,
+      userId: undefined,
       createdAt: undefined,
       updatedAt: undefined
     }
@@ -16,7 +16,7 @@ describe("User Model", () => {
     const user = new UserModel(userData)
 
     expect(user).toBeInstanceOf(UserModel)
-    expect(user.id).toBeDefined()
+    expect(user.userId).toBeDefined()
     expect(user.name).toBe('test')
     expect(user.email).toBe('test')
     expect(user.password).toBe('test')
@@ -27,7 +27,7 @@ describe("User Model", () => {
       name: 'test  ',
       email: 'test',
       password: 'test',
-      id: undefined,
+      userId: undefined,
       createdAt: undefined,
       updatedAt: undefined
     }
@@ -37,7 +37,7 @@ describe("User Model", () => {
     user.formatData()
 
     expect(user).toBeInstanceOf(UserModel)
-    expect(user.id).toBeDefined()
+    expect(user.userId).toBeDefined()
     expect(user.name).toBe('test')
     expect(user.email).toBe('test')
   })
@@ -47,7 +47,7 @@ describe("User Model", () => {
       name: 'test',
       email: 'test',
       password: 'test',
-      id: undefined,
+      userId: undefined,
       createdAt: undefined,
       updatedAt: undefined
     }
@@ -57,7 +57,7 @@ describe("User Model", () => {
     await user.hashPassword()
 
     expect(user).toBeInstanceOf(UserModel)
-    expect(user.id).toBeDefined()
+    expect(user.userId).toBeDefined()
     expect(user.name).toBe('test')
     expect(user.email).toBe('test')
     expect(user.password).not.toBe('test')

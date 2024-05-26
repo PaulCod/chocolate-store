@@ -3,7 +3,7 @@ import {v4 as uuidv4} from "uuid"
 import BcryptUtils from "../utils/auth/bcryptUtils";
 
 class UserModel implements IUserData, IUserMethods {
-  id: string | undefined;
+  userId: string | undefined;
   name: string;
   email: string;
   password: string | undefined;
@@ -11,7 +11,7 @@ class UserModel implements IUserData, IUserMethods {
   updatedAt: Date | undefined;
 
   constructor(data: IUserData) {
-    this.id = data.id ?? uuidv4()
+    this.userId = data.userId ?? uuidv4()
     this.name = data.name
     this.email = data.email
     this.password = data.password
