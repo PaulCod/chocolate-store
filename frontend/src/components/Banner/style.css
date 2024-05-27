@@ -1,0 +1,8 @@
+.banner {
+  background-color: aqua;
+  width: 80%;
+  max-width: 140rem;
+  height: 70%;
+  margin: 5rem auto;
+  border-radius: 0.8rem;
+}
