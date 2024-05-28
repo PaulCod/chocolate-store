@@ -1,1 +1,1 @@
-# Esse repositorio e para meus estudos
+# Esse repositorio é para meus estudos
