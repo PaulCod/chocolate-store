@@ -1,5 +1,5 @@
 import "./style.css"
-
+import { Link } from "react-router-dom"
 import {ShoppingCartSimple} from "@phosphor-icons/react"
 
 export default function Header() {
@@ -7,7 +7,9 @@ export default function Header() {
     <header className="header">
       <div className="header-content">
         <div className="logo">
-          <h1>Logo</h1>
+          <Link to="/">
+            <h1>Logo</h1>
+          </Link>
         </div>
   
         <div className="welcome-message">
@@ -17,14 +19,14 @@ export default function Header() {
         <div className="nav-cart">
           <nav className="nav">
             <ul>
-              <li><a href="">Perfil</a></li>
+              <li><Link to="/profile">Perfil</Link></li>
             </ul>
           </nav>
 
-          <ShoppingCartSimple size={32} />
+          <Link to="/cart">
+            <ShoppingCartSimple size={32} />
+          </Link>
         </div>
-
-        
       </div>
     </header>
   )

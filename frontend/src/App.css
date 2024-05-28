@@ -11,19 +11,23 @@
   margin-bottom: 20rem;
 }
 
+.main .welcome-message {
+  display: none;
+}
+
 .banner {
   background-color: aqua;
   width: 90%;
   max-width: 140rem;
   height: 50rem;
-  margin: 5rem auto;
+  margin: 10rem auto;
   border-radius: 0.8rem;
 }
 
 .search-container {
   margin: 5rem auto;
   position: relative;
-  width: 50%;
+  width: 90%;
   max-width: 80rem;
 }
 
@@ -116,4 +120,11 @@
   height: 6rem;
   background-color: #d0d0d0;
   margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .main .welcome-message {
+    margin-top: 10rem;
+    display: block;
+  }
 }

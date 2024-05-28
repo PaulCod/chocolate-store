@@ -7,6 +7,9 @@ import GridProducts from "../GridProducts/GridProducts";
 export default function Main() {
   return (
     <main className="main">
+      <div className="welcome-message">
+        <span>Bem vindo!</span>
+      </div>
       <Banner />
       <SearchBar />
       <GridProducts />
