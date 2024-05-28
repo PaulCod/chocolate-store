@@ -1,4 +1,4 @@
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -14,14 +14,9 @@ html {
   font-size: 62.5%;
 }
 
-html, body, #root {
-  min-height: 100vh;
-  min-width: 100vw;
+body {
   display: flex;
   flex-direction: column;
-}
-
-body {
   font-size: 1.6rem;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
