@@ -1,18 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-
-interface User {
-  id: string
-  name: string
-  email: string
-  token: string
-}
+import { User } from "../../types/types";
 
 const initialState: User = {
-  id: "",
+  userId: "",
   name: "",
-  email: "",
-  token: ""
+  email: ""
 }
 
 export const userSlice = createSlice({
@@ -20,21 +13,21 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action: PayloadAction<User>) => {
-      state.id = action.payload.id
+
+      state.userId = action.payload.userId
       state.name = action.payload.name
       state.email = action.payload.email
-      state.token = action.payload.token
 
       localStorage.setItem("userData", JSON.stringify(state))
     },
 
-    clearToken: (state) => {
-      state.token = ""
+    clearUser: (state) => {
+      state = initialState
       localStorage.removeItem("userData")
     }
   }
 })
 
-export const {setUserData, clearToken} = userSlice.actions
+export const {setUserData, clearUser} = userSlice.actions
 export const selectUserData = (state: RootState) => state.userSlice
 export default userSlice.reducer

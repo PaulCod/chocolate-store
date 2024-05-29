@@ -1,8 +1,12 @@
 import "./style.css"
 import { Link } from "react-router-dom"
 import {ShoppingCartSimple} from "@phosphor-icons/react"
+import {  useAppSelector } from "../../app/hooks"
 
 export default function Header() {
+
+  const selector = useAppSelector((state) => state.userSlice)
+
   return (
     <header className="header">
       <div className="header-content">
@@ -13,7 +17,7 @@ export default function Header() {
         </div>
   
         <div className="welcome-message">
-          <span>Bem vindo!</span>
+          <span>{`Bem vindo ` + selector.name ?? "!"}</span>
         </div>
   
         <div className="nav-cart">

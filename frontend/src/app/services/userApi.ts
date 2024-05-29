@@ -1,24 +1,22 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
-
-interface User {
-  id: string
-  name: string
-  email: string,
-  password: string
-}
-
-type UserApiResponse = Omit<User, "password">
+import { URL_BACKEND } from "../const/const"
+import { User } from "../../types/types"
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({baseUrl: "http://192.168.1.7:3838"}),
+  baseQuery: fetchBaseQuery({baseUrl: URL_BACKEND}),
   endpoints: (builder) => ({
-    getUserDataById: builder.query<UserApiResponse, void>({
-      query: (id) => `/user/${id}`,
+    getUserDataById: builder.query<User, string>({
+      query: (token) => ({
+        url: "/users",
+        headers: {
+          Authorization: token
+        }
+      }),
     }),
     createUser: builder.mutation<void, User>({
       query: (user) => ({
-        url: "/user",
+        url: "/users",
         method: "POST",
         body: user
       })

@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
+import { URL_BACKEND } from "../const/const"
 
 
 interface Product {
@@ -16,7 +17,7 @@ interface ProductApiResponse {
 
 export const productApi = createApi({
   reducerPath: "products",
-  baseQuery: fetchBaseQuery({baseUrl: "http://192.168.1.7:3838"}),
+  baseQuery: fetchBaseQuery({baseUrl: URL_BACKEND}),
   endpoints: (builder) => ({
     getAllProducts: builder.query<ProductApiResponse, void>({
       query: () => "/products",
