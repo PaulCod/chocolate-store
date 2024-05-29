@@ -23,7 +23,7 @@ class ProductController implements IProductController {
 
     const imagePath = path.join(__dirname, '..', '..','uploads', req.file.filename);
 
-    req.body.imgUrl = `http://192.168.1.7:3838${imagePath}`
+    req.body.imgUrl = `http://192.168.1.7:3838/images/${req.file.filename}`
 
     const product = new ProductModel(req.body);
 

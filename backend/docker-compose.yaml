@@ -1,0 +1,11 @@
+services:
+  backend:
+    build: .
+    container_name: backendchoco
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 3838:3838

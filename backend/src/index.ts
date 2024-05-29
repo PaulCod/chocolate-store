@@ -1,6 +1,7 @@
 import "dotenv/config"
 
 import express from "express";
+import path from 'path'
 import UserController from "./controllers/UserController";
 import UserRoutes from "./routes/userRoutes";
 import UserRepository from "./repository/UserRepository";
@@ -39,6 +40,7 @@ app.use("/api",userRoutes.router)
 app.use("/api", productRoutes.router)
 app.use("/api", orderRoutes.router)
 app.use("/api", loginRoutes.router)
+app.use("/images", express.static(path.join(__dirname, "../uploads")))
 
 app.listen(process.env.PORT || 3001,() => {
   console.log(`Server running on port ${process.env.PORT}`)
