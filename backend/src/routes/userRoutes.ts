@@ -16,7 +16,7 @@ class UserRoutes {
 
   private initializeRoutes() {
     this.router.post('/users', this.userController.createUser.bind(this.userController));
-    this.router.get('/users/:id', this.userController.getUser.bind(this.userController));
+    this.router.get('/users/',this.authUserMiddleware.authUser.bind(this.authUserMiddleware), this.userController.getUser.bind(this.userController));
     this.router.put('/users', this.authUserMiddleware.authUser.bind(this.authUserMiddleware), this.userController.updateUser.bind(this.userController));
     this.router.delete('/users', this.authUserMiddleware.authUser.bind(this.authUserMiddleware), this.userController.deleteUser.bind(this.userController));
   }
