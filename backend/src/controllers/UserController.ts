@@ -39,7 +39,7 @@ class UserController implements IUserController {
   }
 
   async getUser(req: Request, res: Response): Promise<void> {
-    const id: string = req.params.id;
+    const id: string = req.body.userId;
 
     if (!id || id === '') {
       res.status(400).json({ message: ['Id is required'] });
