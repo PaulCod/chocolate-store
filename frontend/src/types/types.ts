@@ -4,4 +4,13 @@ interface User {
   email: string
 }
 
-export type {User}
+interface Product {
+  id: string
+  name: string
+  description: string
+  price: number
+  img_url: string
+  // quantity: number
+}
+
+export type {User, Product}

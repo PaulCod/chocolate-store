@@ -1,19 +1,20 @@
 import "./style.css"
+import { Product } from "../../types/types"
 
-type Props = {
-  title: string
-  price: number
+interface Props {
+  product: Product
 }
 
-export default function ProductCard({title, price}: Props) {
+export default function ProductCard({product}: Props) {
+  console.log(product.img_url)
   return (
     <div className="product-card" >
-      <img src="https://picsum.photos/200/300?grayscale" alt="" className="img-product"/>
-      <h2 className="product-title">{title}</h2>
+      <img src={product.img_url} alt="" className="img-product"/>
+      <h2 className="product-title">{product.name}</h2>
 
       <div className="card-footer">
-        <span className="product-price">R${price}</span>
-        <button className="btn-add-to-cart">Add to cart</button>
+        <span className="product-price">R${product.price}</span>
+        <button className="btn-add-to-cart" onClick={() => {}}>Add to cart</button>
       </div>
     </div>
   )

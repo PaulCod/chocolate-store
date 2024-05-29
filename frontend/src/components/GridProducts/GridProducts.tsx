@@ -1,16 +1,21 @@
 import ProductCard from "../ProductCard/ProductCard"
+import { useGetAllProductsQuery } from "../../app/services/productApi"
 import "./style.css"
 
 export default function GridProducts() {
+  const {data, error} = useGetAllProductsQuery()
+
+  if(error) {
+    return <div>Error</div>
+  }
+
+  console.log(data)
+
   return (
     <div className="grid-container">
       <div className="grid-products">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <ProductCard
-            key={item}
-            title={`Product ${item}`}
-            price={item * 100}
-          />
+        {data?.map((product) => (
+          <ProductCard product={product} />
         ))}
       </div>
     </div>

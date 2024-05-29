@@ -1,0 +1,55 @@
+.main .profile-container {
+  height: 100vh; 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container h2 {
+  color: var(--main-color);
+}
+
+.profile-container .profile-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 50rem;
+  padding: 2rem 3rem;
+  gap: 2rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+}
+
+.profile-container .profile-data .profile-data-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+  margin-bottom: 2rem
+}
+
+.profile-container .profile-data .profile-data-item label {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 70%;
+  gap: 1rem;
+}
+
+.profile-container .profile-data .profile-data-item label span {
+  color: var(--main-color);
+  font-size: 1.8rem;
+}
+
+.profile-container .profile-data .profile-data-item label input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.8rem;
+  border-radius: 0.5rem;
+  border: none
+}
