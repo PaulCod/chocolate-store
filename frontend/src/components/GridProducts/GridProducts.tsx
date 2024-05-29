@@ -5,16 +5,13 @@ export default function GridProducts() {
   return (
     <div className="grid-container">
       <div className="grid-products">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {[1, 2, 3, 4, 5, 6].map((item) => (
+          <ProductCard
+            key={item}
+            title={`Product ${item}`}
+            price={item * 100}
+          />
+        ))}
       </div>
     </div>
   )

@@ -1,3 +1,8 @@
+:root {
+  --main-color: #5e3923
+}
+
+
 *{
   margin: 0;
   padding: 0;
@@ -30,9 +35,9 @@ a {
 }
 
 a:active {
-  color: black;
+  color: white;
 }
 
 a:visited {
-  color: black;
+  color: white;
 }

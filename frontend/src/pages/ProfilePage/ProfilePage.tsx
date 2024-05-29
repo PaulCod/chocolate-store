@@ -2,9 +2,9 @@ import Header from "../../components/Header/Header"
 
 export default function ProfilePage() {
   return (
-    <div>
+    <main className="main">
       <Header />
       <h1>ProfilePage</h1>
-    </div>
+    </main>
   )
 }

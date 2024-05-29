@@ -3,7 +3,7 @@ import "./style.css"
 export default function Banner() {
   return (
     <div className="banner">
-      <h1>Banner</h1>
+      <img className="banner-img" src="../../../public/chocolate2.jpg" alt="uma barra de chocolate ao leite" />
     </div>
   )
 }

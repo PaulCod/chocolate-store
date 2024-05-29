@@ -1,4 +1,5 @@
 
+
 .main {
   display: flex;
   flex-direction: column;
@@ -16,11 +17,17 @@
 }
 
 .banner {
-  background-color: aqua;
   width: 90%;
   max-width: 140rem;
   height: 50rem;
   margin: 10rem auto;
+  border-radius: 0.8rem;
+}
+
+.banner .banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 0.8rem;
 }
 
@@ -99,9 +106,11 @@
 
 .product-card .btn-add-to-cart {
   padding: 0.5rem 1rem;
+  background-color: #7a4a2e;
+  color: white;
   border: 1px solid #000;
   border-radius: 0.8rem;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   border: none;
   cursor: pointer;
   transition: all 300ms ease-in-out;
@@ -118,7 +127,8 @@
   align-items: center;
   width: 100%;
   height: 6rem;
-  background-color: #d0d0d0;
+  background-color: var(--main-color);
+  color: white;
   margin-top: auto;
 }
 
