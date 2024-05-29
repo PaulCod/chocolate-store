@@ -1,5 +1,6 @@
 import "dotenv/config"
 
+import cors from 'cors'
 import express from "express";
 import path from 'path'
 import UserController from "./controllers/UserController";
@@ -16,6 +17,8 @@ import LoginController from "./controllers/LoginController";
 import LoginRoutes from "./routes/LoginRoutes";
 
 const app = express();
+
+app.use(cors())
 
 const databaseServices = new DatabaseServices()
 

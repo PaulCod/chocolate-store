@@ -62,7 +62,7 @@ class UserRepository implements IUserRepository, IUserRepositoryAttributes {
   }
 
   async getById(id: string): Promise<IUserData> {
-    const query = "SELECT id, name, email, password FROM `users` WHERE id = ?";
+    const query = "SELECT id as userId, name, email, password FROM `users` WHERE id = ?";
     const values = [id];
     const connection = await this.getConnection();
 
@@ -83,7 +83,7 @@ class UserRepository implements IUserRepository, IUserRepositoryAttributes {
   }
 
   async getByEmail(email: string): Promise<IUserData | null> {
-    const query = "SELECT id, name, email, password FROM `users` WHERE email = ?";
+    const query = "SELECT id as userId, name, email, password FROM `users` WHERE email = ?";
     const values = [email];
     const connection = await this.getConnection();
 

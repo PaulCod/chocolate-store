@@ -53,7 +53,9 @@ class UserController implements IUserController {
         return;
       }
 
-      res.status(200).json(user);
+      const {password, ...dataWithoutPass} = user
+
+      res.status(200).json(dataWithoutPass);
     } catch (error) {
       res.status(500).json({ message: ['Internal server error'] });
     }
