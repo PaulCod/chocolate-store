@@ -141,7 +141,7 @@ describe('UserRepository', () => {
 
     expect(mockDatabaseService.getConnection).toHaveBeenCalledTimes(1);
     expect(mockConnection.execute).toHaveBeenCalledWith(
-      "SELECT id, name, email, password FROM `users` WHERE id = ?",
+      "SELECT id as userId, name, email, password FROM `users` WHERE id = ?",
       [userId]
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);
@@ -158,7 +158,7 @@ describe('UserRepository', () => {
 
     expect(mockDatabaseService.getConnection).toHaveBeenCalledTimes(1);
     expect(mockConnection.execute).toHaveBeenCalledWith(
-      "SELECT id, name, email, password FROM `users` WHERE id = ?",
+      "SELECT id as userId, name, email, password FROM `users` WHERE id = ?",
       [userId]
     );
     expect(mockConnection.release).toHaveBeenCalledTimes(1);

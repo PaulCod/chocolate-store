@@ -60,7 +60,7 @@ describe("UserController", () => {
       const mockUser = { id: "1", name: "John Doe", email: "john.doe@example.com" };
       mockUserRepository.getById = jest.fn().mockResolvedValue(mockUser);
 
-      const req = { params: { id: "1" } } as unknown as Request;
+      const req = { body: { userId: "1" } } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
 
       await userController.getUser(req, res);
@@ -71,7 +71,7 @@ describe("UserController", () => {
     it("should return 404 if user not found", async () => {
       mockUserRepository.getById = jest.fn().mockResolvedValue(null);
 
-      const req = { params: { id: "1" } } as unknown as Request;
+      const req = { body: {userId: "1"} } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
 
       await userController.getUser(req, res);
@@ -80,7 +80,7 @@ describe("UserController", () => {
     });
 
     it("should return 400 if id is not provided", async () => {
-      const req = { params: { id: "" } } as unknown as Request;
+      const req = { body: { userId: "" } } as unknown as Request;
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() } as unknown as Response;
 
       await userController.getUser(req, res);
