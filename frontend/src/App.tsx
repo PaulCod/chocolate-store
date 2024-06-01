@@ -2,8 +2,8 @@ import './App.css'
 
 import { Outlet} from "react-router-dom"
 import Cookies from 'universal-cookie'
-import {useGetUserDataByIdQuery} from "./app/services/userApi"
-import { setUserData } from './app/features/userSlice'
+import {useGetUserDataByIdQuery, } from "./app/services/userApi"
+import { setUserData, clearUser } from './app/features/userSlice'
 import { useAppDispatch } from './app/hooks'
 
 import Footer from './components/Footer/Footer'
@@ -15,16 +15,31 @@ function App() {
   const token = cookie.get("token")
   const dispatch = useAppDispatch()
 
-  const {data} = useGetUserDataByIdQuery(token, {
+  const {data, error} = useGetUserDataByIdQuery(token, {
     refetchOnMountOrArgChange: true,
-    refetchOnReconnect: false,
+    refetchOnReconnect: true,
     skip: !token
   })
 
   useEffect(() => {
     if(data) {
       dispatch(setUserData(data))
+      return
     }
+
+    if(error) {
+      dispatch(clearUser())
+    }
+
+    const userData = localStorage.getItem("userData")
+
+    if(userData) {
+      dispatch(setUserData(JSON.parse(userData)))
+      return
+    }
+
+    dispatch(clearUser())
+    
   }, [data, dispatch])
 
   return (

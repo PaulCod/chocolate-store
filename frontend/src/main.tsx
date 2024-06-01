@@ -1,6 +1,6 @@
 import './index.css'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 import {Provider} from "react-redux"
 import {store} from "./app/store.ts"
 import App from './App.tsx'
@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp/SignUp.tsx'
 import ProductPage from './pages/ProductPage/ProductPage.tsx'
 import Main from './components/Main/Main.tsx'
 import Error404 from './pages/Error404/Error404.tsx'
+import Cookies from 'universal-cookie'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,18 @@ const router = createBrowserRouter([
       {path: "", element: <Main />},
       { path: 'cart', element: <CartPage /> },
       { path: 'product/:id', element: <ProductPage /> },
-      { path: "profile", element: <ProfilePage /> },
+      { 
+        path: "profile", 
+        element: <ProfilePage />,
+        loader: () => {
+          const cookie = new Cookies()
+          const token = cookie.get("token")
+          if (!token) {
+            return redirect("/login")
+          }
+          return token
+        } 
+      },
       { path: "*", element: <Error404 /> }
     ]
   },

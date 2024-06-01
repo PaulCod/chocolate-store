@@ -9,13 +9,11 @@ export default function GridProducts() {
     return <div>Error</div>
   }
 
-  console.log(data)
-
   return (
     <div className="grid-container">
       <div className="grid-products">
         {data?.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>

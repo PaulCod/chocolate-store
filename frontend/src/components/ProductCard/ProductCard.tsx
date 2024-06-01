@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function ProductCard({product}: Props) {
-  console.log(product.img_url)
+
   return (
     <div className="product-card" >
       <img src={product.img_url} alt="" className="img-product"/>

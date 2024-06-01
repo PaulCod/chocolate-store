@@ -22,7 +22,9 @@ export const userSlice = createSlice({
     },
 
     clearUser: (state) => {
-      state = initialState
+      state.userId = ""
+      state.name = ""
+      state.email = ""  
       localStorage.removeItem("userData")
     }
   }
