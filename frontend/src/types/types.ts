@@ -10,7 +10,7 @@ interface Product {
   description: string
   price: number
   img_url: string
-  // quantity: number
+  quantity: number
 }
 
 export type {User, Product}

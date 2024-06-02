@@ -1,13 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../store"
-
-interface Product {
-  id: string, 
-  name: string,
-  price: number,
-  imageUrl: string
-  quantity: number
-}
+import { Product } from "../../types/types"
 
 interface CartSlice {
   products: Product[],
@@ -26,14 +19,25 @@ const cartSlice = createSlice({
     addProducts: (state, action: PayloadAction<Product>) => {
       const newProduct = action.payload
 
-      const existingProductIndex = state.products.findIndex(product => product.id === newProduct.id)
+      const productWithPrice = {...newProduct, price: parseFloat(newProduct.price.toString())}
+
+      const existingProductIndex = state.products.findIndex(product => product.id === productWithPrice.id)
       if(existingProductIndex !== -1) {
-        state.products[existingProductIndex].quantity += newProduct.quantity 
+        state.products[existingProductIndex].quantity += 1
       } else {
-        state.products.push(newProduct)
+        const product = {...productWithPrice, quantity: 1}
+        state.products.push(product)
       }
 
-      state.total_amount += newProduct.price * newProduct.quantity
+      state.total_amount += productWithPrice.price
+    },  
+
+    incrementProductQuantity: (state, action: PayloadAction<string>) => {
+      const productId = action.payload
+      const productIndex = state.products.findIndex(product => product.id === productId)
+      if (productIndex !== -1) {
+        state.products[productIndex].quantity++
+      }
     },
 
     removeProduct: (state, action: PayloadAction<string>) => {
@@ -43,7 +47,9 @@ const cartSlice = createSlice({
       if(productToRemoveIndex !== -1) {
         const productToRemove = state.products[productToRemoveIndex]
 
-        state.total_amount -= productToRemove.price * productToRemove.quantity
+        if (typeof productToRemove.price === 'number' && typeof productToRemove.quantity === 'number') {
+          state.total_amount -= productToRemove.price * productToRemove.quantity
+        }
         state.products.splice(productToRemoveIndex, 1)
       }
     },
@@ -54,24 +60,27 @@ const cartSlice = createSlice({
     },
 
     decrementProductQuantity: (state, action: PayloadAction<string>) => {
-      const productIdToDecrement = action.payload;
-      const productToDecrementIndex = state.products.findIndex(product => product.id === productIdToDecrement);
+      const productIdToDecrement = action.payload
+      const productToDecrementIndex = state.products.findIndex(product => product.id === productIdToDecrement)
       if (productToDecrementIndex !== -1) {
-        const productToDecrement = state.products[productToDecrementIndex];
+        const productToDecrement = state.products[productToDecrementIndex]
         if (productToDecrement.quantity > 1) {
-          productToDecrement.quantity--;
-          state.total_amount -= productToDecrement.price;
+          productToDecrement.quantity--
+          if (typeof productToDecrement.price === 'number') {
+            state.total_amount -= productToDecrement.price
+          }
         } else {
-          state.products.splice(productToDecrementIndex, 1);
-          state.total_amount -= productToDecrement.price;
+          state.products.splice(productToDecrementIndex, 1)
+          if (typeof productToDecrement.price === 'number') {
+            state.total_amount -= productToDecrement.price
+          }
         }
       }
     }
-    
   }
 })
 
-export const {addProducts, removeProduct, clearCart, decrementProductQuantity} = cartSlice.actions
+export const { addProducts, removeProduct, clearCart, decrementProductQuantity } = cartSlice.actions
 export const selectCartProduct = (state: RootState) => state.cartSlice.products
-export const selectCartTotalAmount = (state: RootState) => state.cartSlice.total_amount
+export const selectCartTotalAmount = (state: RootState) => state.cartSlice.total_amount as number
 export default cartSlice.reducer

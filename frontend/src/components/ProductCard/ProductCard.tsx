@@ -1,4 +1,6 @@
 import "./style.css"
+import { useAppDispatch } from "../../app/hooks"
+import { addProducts } from "../../app/features/cartSlice"
 import { Product } from "../../types/types"
 
 interface Props {
@@ -6,6 +8,7 @@ interface Props {
 }
 
 export default function ProductCard({product}: Props) {
+  const dispatch = useAppDispatch()
 
   return (
     <div className="product-card" >
@@ -14,7 +17,9 @@ export default function ProductCard({product}: Props) {
 
       <div className="card-footer">
         <span className="product-price">R${product.price}</span>
-        <button className="btn-add-to-cart" onClick={() => {}}>Add to cart</button>
+        <button className="btn-add-to-cart" onClick={() => {
+          dispatch(addProducts(product))
+        }}>Add to cart</button>
       </div>
     </div>
   )

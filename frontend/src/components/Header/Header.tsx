@@ -6,6 +6,7 @@ import {  useAppSelector } from "../../app/hooks"
 export default function Header() {
 
   const selector = useAppSelector((state) => state.userSlice)
+  const products = useAppSelector((state) => state.cartSlice.products)
 
   return (
     <header className="header">
@@ -29,6 +30,7 @@ export default function Header() {
 
           <Link to="/cart">
             <ShoppingCartSimple size={32} />
+            <span>{products.length}</span>
           </Link>
         </div>
       </div>

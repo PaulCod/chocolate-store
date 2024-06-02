@@ -22,12 +22,14 @@ function App() {
   })
 
   useEffect(() => {
+    document.title = "Chocolate Store"
+
     if(data) {
       dispatch(setUserData(data))
       return
     }
 
-    if(error) {
+    if(error || !token) {
       dispatch(clearUser())
     }
 

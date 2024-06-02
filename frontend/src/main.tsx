@@ -30,7 +30,7 @@ const router = createBrowserRouter([
           if (!token) {
             return redirect("/login")
           }
-          return token
+          return null
         } 
       },
       { path: "*", element: <Error404 /> }
@@ -38,7 +38,15 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
-    element: <LoginPage />
+    element: <LoginPage />,
+    loader: () => {
+      const cookie = new Cookies()
+      const token = cookie.get("token")
+      if (token) {
+        return redirect("/")
+      }
+      return null
+    }
   },
   {
     path: "signup",
