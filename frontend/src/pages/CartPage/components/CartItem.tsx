@@ -1,5 +1,6 @@
+import { X } from "@phosphor-icons/react"; 
 import { Product } from "../../../types/types";
-import {addProducts, decrementProductQuantity} from "../../../app/features/cartSlice"
+import {addProducts, decrementProductQuantity, removeProduct} from "../../../app/features/cartSlice"
 import { useAppDispatch } from "../../../app/hooks";
 
 interface Props {
@@ -8,8 +9,6 @@ interface Props {
 
 export default function CartItem({product}: Props) {
   const dispatch = useAppDispatch()
-
-  console.log(product)
 
   return (
     <section className="cart-item">
@@ -21,12 +20,18 @@ export default function CartItem({product}: Props) {
         <h3>{product.name}</h3>
         <p>{product.description}</p>
 
-        <div className="cart-item-quantity">
-          <button onClick={() => dispatch(decrementProductQuantity(product.id))}>-</button>
-          <span>{product.quantity}</span>
-          <button onClick={() =>  dispatch(addProducts(product))}>+</button>
+        <div className="cart-item-footer">
+          <div className="cart-item-quantity">
+            <button onClick={() => dispatch(decrementProductQuantity(product.id))}>-</button>
+            <span>{product.quantity}</span>
+            <button onClick={() =>  dispatch(addProducts(product))}>+</button>
+          </div>
+
+          <span>{`Subtotal: R$${(product.price * product.quantity).toFixed(2)}`}</span>
         </div>
       </div>
+
+      <X size={18} className="remove-item" onClick={() => dispatch(removeProduct(product.id))} />
     </section>
   )
 }

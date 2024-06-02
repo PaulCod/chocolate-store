@@ -11,9 +11,6 @@ export default function CartPage() {
   const totalAmount = useAppSelector(selectCartTotalAmount)
   const token = useToken()
 
-  console.log(totalAmount)
-
-
   return (
     <main className="main">
       <section className="cart-container">
@@ -30,7 +27,7 @@ export default function CartPage() {
               {token ? (
                 <>
                   <span>Total</span>
-                  <span>R${totalAmount}</span> 
+                  <span>{`R$${totalAmount.toFixed(2)}`}</span> 
                   <hr />
                   <div className="btns-cart">
                     <button className="btn-clear-cart" onClick={() => {

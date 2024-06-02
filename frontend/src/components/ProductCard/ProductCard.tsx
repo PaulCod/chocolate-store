@@ -2,6 +2,7 @@ import "./style.css"
 import { useAppDispatch } from "../../app/hooks"
 import { addProducts } from "../../app/features/cartSlice"
 import { Product } from "../../types/types"
+import { Link } from "react-router-dom"
 
 interface Props {
   product: Product
@@ -11,8 +12,10 @@ export default function ProductCard({product}: Props) {
   const dispatch = useAppDispatch()
 
   return (
-    <div className="product-card" >
-      <img src={product.img_url} alt="" className="img-product"/>
+    <div className="product-card">
+      <Link to={`/product/${product.id}`}>
+        <img src={product.img_url} alt="" className="img-product"/>
+      </Link>
       <h2 className="product-title">{product.name}</h2>
 
       <div className="card-footer">
