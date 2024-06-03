@@ -1,4 +1,4 @@
-import { X } from "@phosphor-icons/react"; 
+import { Trash } from "@phosphor-icons/react"; 
 import { Product } from "../../../types/types";
 import {addProducts, decrementProductQuantity, removeProduct} from "../../../app/features/cartSlice"
 import { useAppDispatch } from "../../../app/hooks";
@@ -31,7 +31,7 @@ export default function CartItem({product}: Props) {
         </div>
       </div>
 
-      <X size={18} className="remove-item" onClick={() => dispatch(removeProduct(product.id))} />
+      <Trash size={18} className="remove-item" onClick={() => dispatch(removeProduct(product.id))} />
     </section>
   )
 }

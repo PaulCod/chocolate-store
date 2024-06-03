@@ -7,6 +7,7 @@ import { loginApi } from "./services/loginApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { userApi } from "./services/userApi";
 import localStorageMiddleware from "./middleware/localStorageMiddleware";
+import { orderApi } from "./services/orderApi";
 
 export const store = configureStore({
   reducer: {
@@ -14,13 +15,15 @@ export const store = configureStore({
     userSlice,
     [productApi.reducerPath]: productApi.reducer,
     [loginApi.reducerPath]: loginApi.reducer,
-    [userApi.reducerPath]: userApi.reducer
+    [userApi.reducerPath]: userApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       productApi.middleware,
       loginApi.middleware,
       userApi.middleware,
+      orderApi.middleware,
       localStorageMiddleware
     )
 });
