@@ -83,6 +83,11 @@
   transition: all 300ms ease-in-out;
 }
 
+.btns-cart button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .btns-cart .btn-finalize-order {
   background-color: var(--main-color);
   color: white;

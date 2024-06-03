@@ -24,7 +24,7 @@ export default function CartPage() {
               ))}
             </div>
             <div className="order-total">
-              {token ? (
+              
                 <>
                   <span>Total</span>
                   <span>{`R$${totalAmount.toFixed(2)}`}</span> 
@@ -34,16 +34,16 @@ export default function CartPage() {
                       dispatch(clearCart())
                     }}>Limpar carrinho</button>
         
-                    <button className="btn-finalize-order">Finalizar compra</button>
+                    <button className="btn-finalize-order" disabled={!token}>Finalizar compra</button>
                   </div>
+                  
+                  {!token && <div>Faça
+                    <Link className="link-cart" to="/login">login</Link> ou 
+                    <Link to="/register" className="link-cart">cadastre-se</Link>
+                    para finalizar a compra
+                  </div>}
+                  
                 </>
-              ) : (
-                <div>Faça
-                  <Link className="link-cart" to="/login">login</Link> ou 
-                  <Link to="/register" className="link-cart">cadastre-se</Link>
-                  para finalizar a compra
-                </div>
-              )}
             </div>
           </>
         ): (

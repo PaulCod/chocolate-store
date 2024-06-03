@@ -7,10 +7,17 @@ interface CartSlice {
   total_amount: number
 }
 
-const initialState: CartSlice = {
-  products: [],
-  total_amount: 0
+const loadStateFromLocalStorage = (): CartSlice => {
+  const cartProducts = localStorage.getItem("cartProducts")
+  const totalAmount = localStorage.getItem("totalAmount")
+
+  return {
+    products: cartProducts? JSON.parse(cartProducts) : [],
+    total_amount: totalAmount ? JSON.parse(totalAmount): 0
+  }
 }
+
+const initialState = loadStateFromLocalStorage()
 
 const cartSlice = createSlice({
   name: "cart",
@@ -19,7 +26,7 @@ const cartSlice = createSlice({
     addProducts: (state, action: PayloadAction<Product>) => {
       const newProduct = action.payload
 
-      const productWithPrice = {...newProduct, price: parseFloat(newProduct.price.toString())}
+      const productWithPrice = {...newProduct, price: Number(newProduct.price.toString())}
 
       const existingProductIndex = state.products.findIndex(product => product.id === productWithPrice.id)
       if(existingProductIndex !== -1) {
@@ -30,26 +37,18 @@ const cartSlice = createSlice({
       }
 
       state.total_amount += productWithPrice.price
-    },  
 
-    incrementProductQuantity: (state, action: PayloadAction<string>) => {
-      const productId = action.payload
-      const productIndex = state.products.findIndex(product => product.id === productId)
-      if (productIndex !== -1) {
-        state.products[productIndex].quantity++
-      }
-    },
+      localStorage.setItem("cartProducts", JSON.stringify(state.products))
+      localStorage.setItem("totalAmount", JSON.stringify(state.total_amount))
+    },  
 
     removeProduct: (state, action: PayloadAction<string>) => {
       const productId = action.payload
-
       const productToRemoveIndex = state.products.findIndex(product => product.id === productId)
+
       if(productToRemoveIndex !== -1) {
         const productToRemove = state.products[productToRemoveIndex]
-
-        if (typeof productToRemove.price === 'number' && typeof productToRemove.quantity === 'number') {
-          state.total_amount -= productToRemove.price * productToRemove.quantity
-        }
+        state.total_amount -= productToRemove.price * productToRemove.quantity
         state.products.splice(productToRemoveIndex, 1)
       }
     },
@@ -62,6 +61,7 @@ const cartSlice = createSlice({
     decrementProductQuantity: (state, action: PayloadAction<string>) => {
       const productIdToDecrement = action.payload
       const productToDecrementIndex = state.products.findIndex(product => product.id === productIdToDecrement)
+          
       if (productToDecrementIndex !== -1) {
         const productToDecrement = state.products[productToDecrementIndex]
         if (productToDecrement.quantity > 1) {
@@ -76,6 +76,9 @@ const cartSlice = createSlice({
           }
         }
       }
+
+      localStorage.setItem("cartProducts", JSON.stringify(state.products))
+      localStorage.setItem("totalAmount", JSON.stringify(state.total_amount))
     }
   }
 })
