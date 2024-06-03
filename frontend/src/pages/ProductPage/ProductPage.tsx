@@ -21,8 +21,6 @@ export default function ProductPage() {
     return <Error404 />
   }
 
-  
-
   return (
     <main className="main">
       <section className="product-container">

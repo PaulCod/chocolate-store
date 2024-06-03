@@ -46,7 +46,7 @@ export default function LoginPage() {
       navigate("/")
       
     } catch(error) {
-      console.log(error)
+      toast.error("Login failed")
     } 
   }
 
@@ -72,6 +72,7 @@ export default function LoginPage() {
 
             <button disabled={isLoading} className="btn-login" type="submit">Login</button>
           </form>
+          <Link style={{marginTop: "10px", color: "black"}} to="/register">Don't have an account? Sign Up</Link>
         </section>
       </div>
     </main>

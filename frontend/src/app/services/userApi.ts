@@ -2,6 +2,8 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import { URL_BACKEND } from "../const/const"
 import { User } from "../../types/types"
 
+type CreateUserRequest = Omit<User, "userId">
+
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({baseUrl: URL_BACKEND}),
@@ -14,7 +16,7 @@ export const userApi = createApi({
         }
       }),
     }),
-    createUser: builder.mutation<void, User>({
+    createUser: builder.mutation<void, CreateUserRequest>({
       query: (user) => ({
         url: "/users",
         method: "POST",

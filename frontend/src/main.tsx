@@ -49,8 +49,16 @@ const router = createBrowserRouter([
     }
   },
   {
-    path: "signup",
-    element: <SignUp />
+    path: "register",
+    element: <SignUp />,
+    loader: () => {
+      const cookie = new Cookies()
+      const token = cookie.get("token")
+      if (token) {
+        return redirect("/")
+      }
+      return null
+    }
   }
 ])
 
